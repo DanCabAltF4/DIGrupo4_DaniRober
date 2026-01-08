@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="DIGrupo4_DaniRober/DIGrupo4_DaniRober.csproj" />
+  <Project Path="UserControls/UserControls.csproj" Id="0830341a-d818-4f68-8c69-977888fe66c9" />
 </Solution>
