@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             btn_Enviar = new Button();
-            this.flowlayoutChat = new FlowLayoutPanel();
             rtbox_prompt = new RichTextBox();
+            flowLayoutPanel2 = new FlowLayoutPanel();
             SuspendLayout();
             // 
             // btn_Enviar
@@ -42,16 +42,6 @@
             btn_Enviar.Text = "Enviar";
             btn_Enviar.UseVisualStyleBackColor = true;
             // 
-            // flowlayoutChat
-            // 
-            this.flowlayoutChat.AutoScroll = true;
-            this.flowlayoutChat.FlowDirection = FlowDirection.RightToLeft;
-            this.flowlayoutChat.Location = new Point(152, 12);
-            this.flowlayoutChat.Name = "flowlayoutChat";
-            this.flowlayoutChat.Size = new Size(517, 347);
-            this.flowlayoutChat.TabIndex = 2;
-            this.flowlayoutChat.WrapContents = false;
-            // 
             // rtbox_prompt
             // 
             rtbox_prompt.Location = new Point(152, 365);
@@ -60,13 +50,20 @@
             rtbox_prompt.TabIndex = 3;
             rtbox_prompt.Text = "";
             // 
+            // flowLayoutPanel2
+            // 
+            flowLayoutPanel2.Location = new Point(152, 12);
+            flowLayoutPanel2.Name = "flowLayoutPanel2";
+            flowLayoutPanel2.Size = new Size(517, 347);
+            flowLayoutPanel2.TabIndex = 4;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(flowLayoutPanel2);
             Controls.Add(rtbox_prompt);
-            Controls.Add(this.flowlayoutChat);
             Controls.Add(btn_Enviar);
             Name = "Form1";
             Text = "Form1";
@@ -79,5 +76,6 @@
         private Button btn_Enviar;
         private FlowLayoutPanel flowLayoutPanel1;
         private RichTextBox rtbox_prompt;
+        private FlowLayoutPanel flowLayoutPanel2;
     }
 }
