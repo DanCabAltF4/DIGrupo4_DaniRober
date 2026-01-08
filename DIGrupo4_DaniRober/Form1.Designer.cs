@@ -28,19 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBox1 = new TextBox();
             btn_Enviar = new Button();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            richTextBox1 = new RichTextBox();
-            flowLayoutPanel1.SuspendLayout();
+            this.flowlayoutChat = new FlowLayoutPanel();
+            rtbox_prompt = new RichTextBox();
             SuspendLayout();
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(78, 3);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(436, 23);
-            textBox1.TabIndex = 0;
             // 
             // btn_Enviar
             // 
@@ -51,37 +42,34 @@
             btn_Enviar.Text = "Enviar";
             btn_Enviar.UseVisualStyleBackColor = true;
             // 
-            // flowLayoutPanel1
+            // flowlayoutChat
             // 
-            flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.Controls.Add(textBox1);
-            flowLayoutPanel1.FlowDirection = FlowDirection.RightToLeft;
-            flowLayoutPanel1.Location = new Point(152, 12);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(517, 347);
-            flowLayoutPanel1.TabIndex = 2;
-            flowLayoutPanel1.WrapContents = false;
+            this.flowlayoutChat.AutoScroll = true;
+            this.flowlayoutChat.FlowDirection = FlowDirection.RightToLeft;
+            this.flowlayoutChat.Location = new Point(152, 12);
+            this.flowlayoutChat.Name = "flowlayoutChat";
+            this.flowlayoutChat.Size = new Size(517, 347);
+            this.flowlayoutChat.TabIndex = 2;
+            this.flowlayoutChat.WrapContents = false;
             // 
-            // richTextBox1
+            // rtbox_prompt
             // 
-            richTextBox1.Location = new Point(152, 365);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(436, 47);
-            richTextBox1.TabIndex = 3;
-            richTextBox1.Text = "";
+            rtbox_prompt.Location = new Point(152, 365);
+            rtbox_prompt.Name = "rtbox_prompt";
+            rtbox_prompt.Size = new Size(436, 47);
+            rtbox_prompt.TabIndex = 3;
+            rtbox_prompt.Text = "";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(richTextBox1);
-            Controls.Add(flowLayoutPanel1);
+            Controls.Add(rtbox_prompt);
+            Controls.Add(this.flowlayoutChat);
             Controls.Add(btn_Enviar);
             Name = "Form1";
             Text = "Form1";
-            flowLayoutPanel1.ResumeLayout(false);
-            flowLayoutPanel1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -90,6 +78,6 @@
         private TextBox textBox1;
         private Button btn_Enviar;
         private FlowLayoutPanel flowLayoutPanel1;
-        private RichTextBox richTextBox1;
+        private RichTextBox rtbox_prompt;
     }
 }
