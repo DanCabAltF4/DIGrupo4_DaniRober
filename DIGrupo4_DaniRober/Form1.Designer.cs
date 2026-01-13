@@ -41,6 +41,7 @@
             btn_Enviar.TabIndex = 1;
             btn_Enviar.Text = "Enviar";
             btn_Enviar.UseVisualStyleBackColor = true;
+            btn_Enviar.Click += btn_Enviar_Click;
             // 
             // rtbox_prompt
             // 
