@@ -1,3 +1,5 @@
+using UserControls;
+
 namespace DIGrupo4_DaniRober
 {
     public partial class Form1 : Form
@@ -5,17 +7,17 @@ namespace DIGrupo4_DaniRober
         // Cliente que se comunica con Ollama
         private readonly ClienteOllama _clienteOllama;
 
-        // Token para controlar la petición
+        // Token para controlar la peticiï¿½n
         private CancellationTokenSource? _cts;
 
         public Form1()
         {
-            InitializeComponent(); // Carga el diseñador
+            InitializeComponent(); // Carga el diseï¿½ador
 
             // Creamos el cliente una sola vez
             _clienteOllama = new ClienteOllama();
 
-            // Conectamos el botón Enviar al evento
+            // Conectamos el botï¿½n Enviar al evento
             btn_Enviar.Click += btn_Enviar_Click;
 
             // Configuramos el FlowLayoutPanel para que sea vertical
@@ -27,12 +29,12 @@ namespace DIGrupo4_DaniRober
         // Evento que se ejecuta al pulsar Enviar
         private async void btn_Enviar_Click(object? sender, EventArgs e)
         {
-            btn_Enviar.Enabled = false;        // Bloqueamos botón
+            btn_Enviar.Enabled = false;        // Bloqueamos botï¿½n
             _cts = new CancellationTokenSource();
 
             try
             {
-                // Leemos lo que escribió el usuario
+                // Leemos lo que escribiï¿½ el usuario
                 string prompt = rtbox_prompt.Text.Trim();
 
                 if (string.IsNullOrWhiteSpace(prompt))
@@ -47,7 +49,7 @@ namespace DIGrupo4_DaniRober
                 // Creamos un label temporal de "pensando..."
                 Label lblCargando = CrearLabel("? Pensando...");
 
-                // Añadimos el label al panel
+                // Aï¿½adimos el label al panel
                 flowLayoutPanel2.Controls.Add(lblCargando);
                 flowLayoutPanel2.ScrollControlIntoView(lblCargando);
 
@@ -66,27 +68,27 @@ namespace DIGrupo4_DaniRober
             }
             finally
             {
-                btn_Enviar.Enabled = true; // Reactivamos botón
+                btn_Enviar.Enabled = true; // Reactivamos botï¿½n
                 _cts?.Dispose();
                 _cts = null;
             }
         }
 
-        // Crea un Label bonito para mostrar texto de la IA
-        private Label CrearLabel(string texto)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            Label lbl = new Label();
 
-            lbl.AutoSize = true;
-            lbl.MaximumSize = new Size(flowLayoutPanel2.Width - 30, 0);
-            lbl.Font = new Font("Segoe UI", 10);
-            lbl.Padding = new Padding(10);
-            lbl.Margin = new Padding(6);
-            lbl.BorderStyle = BorderStyle.FixedSingle;
-            lbl.BackColor = Color.Gainsboro;
-            lbl.Text = texto;
+        }
 
-            return lbl;
+        private void btn_Enviar_Click(object sender, EventArgs e)
+        {
+            var prompt = rtbox_prompt.Text;
+            rtbox_prompt.Text = string.Empty;
+            annadirMensaje(prompt, false);
+
+        }
+
+        public void annadirMensaje(string mensaje, bool ia) {
+            flowLayout.Controls.Add(new Mensaje(mensaje, ia, flowLayout.Width * 0.99));
         }
     }
 }
