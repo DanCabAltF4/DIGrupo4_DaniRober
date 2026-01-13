@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using UserControls; // <- donde está tu control Mensaje
+using UserControls; 
 
 namespace DIGrupo4_DaniRober
 {
@@ -12,17 +12,17 @@ namespace DIGrupo4_DaniRober
         // Cliente que se comunica con Ollama
         private readonly ClienteOllama _clienteOllama;
 
-        // Token para cancelar la petición (opcional)
+        
         private CancellationTokenSource? _cts;
 
         public Form1()
         {
             InitializeComponent();
 
-            // Creamos el cliente una sola vez
+            // Creamos el cliente que conecta con ollama
             _clienteOllama = new ClienteOllama();
 
-            // Aseguramos que el click llama a nuestro handler async
+            // Aseguramos que el click llama bien al evento
             btn_Enviar.Click -= btn_Enviar_Click;
             btn_Enviar.Click += btn_Enviar_Click;
 
@@ -32,7 +32,7 @@ namespace DIGrupo4_DaniRober
             flowLayout.WrapContents = false;
         }
 
-        // Evento al pulsar Enviar (USUARIO -> IA)
+     
         private async void btn_Enviar_Click(object? sender, EventArgs e)
         {
             btn_Enviar.Enabled = false;
@@ -55,13 +55,13 @@ namespace DIGrupo4_DaniRober
                 annadirMensaje(prompt, ia: false);
 
                 // 2) Añadir mensaje temporal "Pensando..." como IA
-                var msgPensando = annadirMensaje("🤖 Pensando...", ia: true);
+                var msgPensando = annadirMensaje("Pensando...", ia: true);
 
                 // 3) Llamar a Ollama
                 string respuesta = await _clienteOllama.EnviarPromptAsync(prompt, _cts.Token);
 
                 // 4) Reemplazar el texto del "Pensando..." por la respuesta real
-                //    (lo más limpio es quitar el control y añadir uno nuevo con el texto final)
+                
                 flowLayout.Controls.Remove(msgPensando);
                 msgPensando.Dispose();
 
@@ -69,12 +69,12 @@ namespace DIGrupo4_DaniRober
             }
             catch (OperationCanceledException)
             {
-                annadirMensaje("⚠️ Petición cancelada.", ia: true);
+                annadirMensaje("Petición cancelada.", ia: true);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
-                annadirMensaje("❌ Error: " + ex.Message, ia: true);
+                annadirMensaje(" Error: " + ex.Message, ia: true);
             }
             finally
             {
@@ -84,15 +84,10 @@ namespace DIGrupo4_DaniRober
             }
         }
 
-        /// <summary>
-        /// Añade un mensaje al chat.
-        /// ia=false -> usuario
-        /// ia=true  -> IA
-        /// Devuelve el control creado (por si quieres reemplazarlo luego).
-        /// </summary>
+        
         private Control annadirMensaje(string mensaje, bool ia)
         {
-            // Mensaje(mensaje, ia, ancho)
+            // este es el mensaje que manda la ia
             var control = new Mensaje(mensaje, ia, (int)(flowLayout.Width * 0.99));
 
             flowLayout.Controls.Add(control);
