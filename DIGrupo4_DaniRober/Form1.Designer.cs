@@ -30,7 +30,7 @@
         {
             btn_Enviar = new Button();
             rtbox_prompt = new RichTextBox();
-            flowLayoutPanel2 = new FlowLayoutPanel();
+            flowLayout = new FlowLayoutPanel();
             SuspendLayout();
             // 
             // btn_Enviar
@@ -50,23 +50,27 @@
             rtbox_prompt.TabIndex = 3;
             rtbox_prompt.Text = "";
             // 
-            // flowLayoutPanel2
+            // flowLayout
             // 
-            flowLayoutPanel2.Location = new Point(152, 12);
-            flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(517, 347);
-            flowLayoutPanel2.TabIndex = 4;
+            flowLayout.AutoScroll = true;
+            flowLayout.FlowDirection = FlowDirection.TopDown;
+            flowLayout.Location = new Point(152, 12);
+            flowLayout.Name = "flowLayout";
+            flowLayout.Size = new Size(517, 347);
+            flowLayout.TabIndex = 4;
+            flowLayout.WrapContents = false;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(flowLayoutPanel2);
+            Controls.Add(flowLayout);
             Controls.Add(rtbox_prompt);
             Controls.Add(btn_Enviar);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ResumeLayout(false);
         }
 
@@ -76,6 +80,6 @@
         private Button btn_Enviar;
         private FlowLayoutPanel flowLayoutPanel1;
         private RichTextBox rtbox_prompt;
-        private FlowLayoutPanel flowLayoutPanel2;
+        private FlowLayoutPanel flowLayout;
     }
 }

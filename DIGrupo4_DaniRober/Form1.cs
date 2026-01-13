@@ -1,3 +1,5 @@
+using UserControls;
+
 namespace DIGrupo4_DaniRober
 {
     public partial class Form1 : Form
@@ -7,5 +9,9 @@ namespace DIGrupo4_DaniRober
             InitializeComponent();
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+        
+        }
     }
 }

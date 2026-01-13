@@ -8,4 +8,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\UserControls\UserControls.csproj" />
+  </ItemGroup>
+
 </Project>
