@@ -31,7 +31,8 @@
             btn_Enviar = new Button();
             rtbox_prompt = new RichTextBox();
             flowLayoutPanel2 = new FlowLayoutPanel();
-            SuspendLayout();
+            this.SuspendLayout();
+
             // 
             // btn_Enviar
             // 
