@@ -1,4 +1,9 @@
-using UserControls;
+using System;
+using System.Drawing;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using UserControls; 
 
 namespace DIGrupo4_DaniRober
 {
@@ -7,34 +12,34 @@ namespace DIGrupo4_DaniRober
         // Cliente que se comunica con Ollama
         private readonly ClienteOllama _clienteOllama;
 
-        // Token para controlar la petici�n
+        
         private CancellationTokenSource? _cts;
 
         public Form1()
         {
-            InitializeComponent(); // Carga el dise�ador
+            InitializeComponent();
 
-            // Creamos el cliente una sola vez
+            // Creamos el cliente que conecta con ollama
             _clienteOllama = new ClienteOllama();
 
-            // Conectamos el bot�n Enviar al evento
+            // Aseguramos que el click llama bien al evento
+            btn_Enviar.Click -= btn_Enviar_Click;
             btn_Enviar.Click += btn_Enviar_Click;
 
-            // Configuramos el FlowLayoutPanel para que sea vertical
-            flowLayoutPanel2.AutoScroll = true;
-            flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel2.WrapContents = false;
+            // FlowLayoutPanel vertical y con scroll
+            flowLayout.AutoScroll = true;
+            flowLayout.FlowDirection = FlowDirection.TopDown;
+            flowLayout.WrapContents = false;
         }
 
-        // Evento que se ejecuta al pulsar Enviar
+     
         private async void btn_Enviar_Click(object? sender, EventArgs e)
         {
-            btn_Enviar.Enabled = false;        // Bloqueamos bot�n
+            btn_Enviar.Enabled = false;
             _cts = new CancellationTokenSource();
 
             try
             {
-                // Leemos lo que escribi� el usuario
                 string prompt = rtbox_prompt.Text.Trim();
 
                 if (string.IsNullOrWhiteSpace(prompt))
@@ -43,52 +48,52 @@ namespace DIGrupo4_DaniRober
                     return;
                 }
 
-                // Limpiamos el textbox
+                // Limpia el prompt
                 rtbox_prompt.Clear();
 
-                // Creamos un label temporal de "pensando..."
-                Label lblCargando = CrearLabel("? Pensando...");
+                // 1) Añadir mensaje del usuario
+                annadirMensaje(prompt, ia: false);
 
-                // A�adimos el label al panel
-                flowLayoutPanel2.Controls.Add(lblCargando);
-                flowLayoutPanel2.ScrollControlIntoView(lblCargando);
+                // 2) Añadir mensaje temporal "Pensando..." como IA
+                var msgPensando = annadirMensaje("Pensando...", ia: true);
 
-                // Enviamos el prompt a Ollama
+                // 3) Llamar a Ollama
                 string respuesta = await _clienteOllama.EnviarPromptAsync(prompt, _cts.Token);
 
-                // Sustituimos el texto por la respuesta real
-                lblCargando.Text = respuesta;
+                // 4) Reemplazar el texto del "Pensando..." por la respuesta real
+                
+                flowLayout.Controls.Remove(msgPensando);
+                msgPensando.Dispose();
 
-                lblCargando.Refresh();
-                flowLayoutPanel2.ScrollControlIntoView(lblCargando);
+                annadirMensaje(respuesta, ia: true);
+            }
+            catch (OperationCanceledException)
+            {
+                annadirMensaje("Petición cancelada.", ia: true);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
+                annadirMensaje(" Error: " + ex.Message, ia: true);
             }
             finally
             {
-                btn_Enviar.Enabled = true; // Reactivamos bot�n
+                btn_Enviar.Enabled = true;
                 _cts?.Dispose();
                 _cts = null;
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        
+        private Control annadirMensaje(string mensaje, bool ia)
         {
+            // este es el mensaje que manda la ia
+            var control = new Mensaje(mensaje, ia, (int)(flowLayout.Width * 0.99));
 
-        }
+            flowLayout.Controls.Add(control);
+            flowLayout.ScrollControlIntoView(control);
 
-        private void btn_Enviar_Click(object sender, EventArgs e)
-        {
-            var prompt = rtbox_prompt.Text;
-            rtbox_prompt.Text = string.Empty;
-            annadirMensaje(prompt, false);
-
-        }
-
-        public void annadirMensaje(string mensaje, bool ia) {
-            flowLayout.Controls.Add(new Mensaje(mensaje, ia, flowLayout.Width * 0.99));
+            return control;
         }
     }
 }
